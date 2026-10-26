@@ -8,6 +8,8 @@ Swagger: http://localhost:8080/swagger — metrikler: http://localhost:8080/metr
 Docker Engine + Compose v2 yeterli; bilgisayara .NET veya PostgreSQL kurulması gerekmez.
 
 ```bash
+cp .env.example .env
+# .env dosyasında POSTGRES_PASSWORD için yerel bir parola belirleyin.
 docker compose up -d --build
 # Seed işlemi tamamlanana kadar hazır olma kontrolü:
 curl --fail http://localhost:8080/health/ready
@@ -93,8 +95,7 @@ docker compose down # Verileri korur
 docker compose down -v
 ```
 
-Portlar yalnız localhost'a bağlıdır. Kimlik doğrulama yoktur; parolalar yerel
-laboratuvar içindir. İnternete yayınlamak için tasarlanmamıştır. Swagger ve metrikler
+Portlar yalnız localhost'a bağlıdır. Kimlik doğrulama yoktur; parola .env üzerinden alınır ve bu dosya Git/Docker build dışında tutulur. İnternete yayınlamak için tasarlanmamıştır. Swagger ve metrikler
 açıktır. Ek Redis, kuyruk, ödeme servisi veya izleme sunucusu yoktur.
 
 Yönetilen bulut ortamında NuGet TLS güveni gerekirse build'e ortamın CA dosyasını
